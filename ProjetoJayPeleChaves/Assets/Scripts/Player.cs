@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    [SerializeField] float speed;
+    [SerializeField] float speed, fireRate, nextFire;
     public GameObject bulletPrefab;
 
     private void Update()
@@ -14,14 +14,17 @@ public class Player : MonoBehaviour
         Vector3 movement = new Vector3(horizontalMovement, verticalMovement, 0f).normalized;
         transform.Translate(movement * Time.deltaTime * speed);
 
-        if(Input.GetMouseButtonDown(0))
+
+        if ((Input.GetMouseButton(0) || Input.GetKey(KeyCode.Space)) && Time.time > nextFire)
         {
+            nextFire = Time.time + fireRate;
             Shoot();
         }
     }
 
     public void Shoot()
     {
+   
         GameObject bullet = Instantiate(bulletPrefab, transform.position, transform.rotation);
         Bullet bulletScript = bullet.GetComponent<Bullet>();
     }
