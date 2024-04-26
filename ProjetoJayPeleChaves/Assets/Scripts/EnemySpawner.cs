@@ -20,6 +20,7 @@ public class EnemySpawner : MonoBehaviour
             Instantiate(enemyPrefab, transform.position, Quaternion.identity);
             RandomTimeSpawn();
         }
+        MoveSpawner();
     }
 
     public void RandomTimeSpawn()
@@ -29,7 +30,7 @@ public class EnemySpawner : MonoBehaviour
 
     public void MoveSpawner()
     {
-        float newY = Mathf.PingPong(Time.deltaTime * spawnerMoveSpeed, maxY - minY) + maxY;
-        transform.position = new Vector3(0, newY, 0);
+        float newY = Mathf.PingPong(Time.time * spawnerMoveSpeed, maxY - minY) + minY;
+        transform.position = new Vector3(10, newY, 0);
     }
 }
